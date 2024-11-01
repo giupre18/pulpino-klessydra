@@ -56,7 +56,12 @@ vlog -quiet -64 -work ${LIB_NAME} -ccflags "-I${TB_PATH}/jtag_dpi/ -m64" -dpicpp
 # 
 vlog -quiet -sv -work ${LIB_NAME} +incdir+${TB_PATH} +incdir+${RTL_PATH}/includes/ -dpiheader ${TB_PATH}/mem_dpi/dpiheader.h    ${TB_PATH}/tb.sv || goto error
 vlog -quiet -64 -work ${LIB_NAME} -ccflags "-I${TB_PATH}/mem_dpi/  -m64" -dpicpppath `which gcc`    ${TB_PATH}/mem_dpi/mem_dpi.c                 || goto error
-# 
+###########PROVA DPI############################
+vlog -quiet -sv -work ${LIB_NAME} +incdir+${TB_PATH} +incdir+${RTL_PATH}/includes/ -dpiheader ${TB_PATH}/my_dpi/dpiheader.h ${TB_PATH}/tb.sv    || goto error
+vlog -quiet -64 -work ${LIB_NAME} -ccflags "-I${TB_PATH}/my_dpi/ -m64" -dpicpppath `which gcc`    ${TB_PATH}/my_dpi/my_dpi.c 			|| goto error
+gcc -shared -m64 ${LIB_NAME}/_dpi/auto_compile@/linux_x86_64_gcc-11/my_dpi.o -o ${LIB_NAME}/svdpi.so
+
+################################################ 
 echo "${Cyan}--> ${IP_NAME} compilation complete! ${NC}"
 exit 0
 
