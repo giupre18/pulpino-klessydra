@@ -13,9 +13,9 @@
 
 
 // include the uvm test class 
-`include "uvm_macros.svh"
-`include "tb_uvm_pkg.sv"        
-  
+ `include "uvm_macros.svh"
+ `include "tb_uvm_pkg.sv"        
+ 
 `define REF_CLK_PERIOD   (2*15.25us)  // 32.786 kHz --> FLL reset value --> 50 MHz
 `define CLK_PERIOD       10.00ns      // 100 MHz   
 
@@ -129,29 +129,52 @@ module tb;                                              // top module of UVM tb
   timeunit      1ns;                                    // timescal of pulpino tb - time ns
   timeprecision 1ps;
   genvar i;
-  //---------------------------------------------------------------------------------------------------------------------------------------
-  import uvm_pkg::*;              // import the uvm package
-  import tb_uvm_pkg::*;           // import the new package defined in the separate file
-  //---------------------------------------------------------------------------------------------------------------------------------------
-        
+  
+    parameter SELEZIONE = 0;
   // +MEMLOAD= valid values are "SPI", "STANDALONE" "PRELOAD", "" (no load of L2)
   parameter  SPI            = "QUAD";    // valid values are "SINGLE", "QUAD"
-  parameter  BAUDRATE       = 781250;    // 1562500
+  parameter  BAUDRATE       = (781250*4);    // 1562500
   parameter  CLK_USE_FLL    = 0;  // 0 or 1
   parameter  TEST           = ""; //valid values are "" (NONE), "DEBUG"
   parameter  USE_ZERO_RISCY = 0;
-  parameter  USE_KLESSYDRA_T0_2TH = 0;
-  parameter  USE_KLESSYDRA_T0_3TH = 0;
-  parameter  USE_KLESSYDRA_T1_3TH = 0;
-  parameter  USE_KLESSYDRA_M   = 0;
-  parameter  USE_KLESSYDRA_S1     = 0;
-  parameter  USE_KLESSYDRA_OOO    = 0;
-  parameter  USE_KLESSYDRA_dfT1_M  = 0;
-  parameter  USE_KLESSYDRA_fT1_3TH = 0;
-  parameter  USE_KLESSYDRA_F0_3TH = 0;
+  parameter  USE_KLESSYDRA_T0_2TH  = 0;
+  parameter  USE_KLESSYDRA_T0_3TH  = 0;
+  parameter  USE_KLESSYDRA_T1_3TH  = 0;
+  parameter  USE_KLESSYDRA_M       = 0;
+  parameter  USE_KLESSYDRA_S1      = 0;
+  parameter  USE_KLESSYDRA_OOO     = 0;
+  parameter  USE_KLESSYDRA_F0_3TH  = 0;
+  parameter  USE_KLESSYDRA_FT13    = 0;
+  parameter	 USE_KLESSYDRA_NETLIST = 0;
   parameter  RISCY_RV32F    = 0;
   parameter  ZERO_RV32M     = 1;
   parameter  ZERO_RV32E     = 0;
+//Klessydra Parameters
+  parameter KLESS_CONTEXT_SWITCH         = 1;
+  parameter KLESS_THREAD_POOL_SIZE		   = 3;
+  parameter KLESS_LUTRAM_RF              = 1;
+  parameter KLESS_LATCH_RF               = 0;
+  parameter KLESS_RV32E					         = 0;
+  parameter KLESS_RV32M					         = 1;
+  parameter KLESS_superscalar_exec_en    = 1;
+  parameter KLESS_morph_en               = 1;
+  parameter KLESS_fetch_stage_en         = 0;
+  parameter KLESS_branch_predict_en      = 1;
+  parameter KLESS_btb_en                 = 0;
+  parameter KLESS_btb_len                = 0;
+  parameter KLESS_accl_en				         = 1;
+  parameter KLESS_replicate_accl_en	     = 1;
+  parameter KLESS_multithreaded_accl_en  = 0;
+  parameter KLESS_SPM_NUM				         = 3;
+  parameter KLESS_Addr_Width			       = 12;
+  parameter KLESS_SIMD					         = 4;
+  parameter KLESS_MCYCLE_EN			         = 1;
+  parameter KLESS_MINSTRET_EN			       = 1;
+  parameter KLESS_MHPMCOUNTER_EN		     = 1;
+  parameter KLESS_count_all				       = 1;
+  parameter KLESS_debug_en				       = 1;
+  parameter KLESS_tracer_en              = 0;
+
 
 
   int           exit_status = `EXIT_ERROR; // modelsim exit code, will be overwritten when successful
@@ -201,7 +224,10 @@ module tb;                                              // top module of UVM tb
 //INTERFACCIA
   //---------------------------------------------------------------------------------------------------------------------------------------
   /* instantiate the interface that is used a mean of communication between sv and UVM tbs, set as global - giving as input the s_clk from tb module */
-
+//---------------------------------------------------------------------------------------------------------------------------------------
+  import uvm_pkg::*;              // import the uvm package
+  import tb_uvm_pkg::*;           // import the new package defined in the separate file 
+  //---------------------------------------------------------------------------------------------------------------------------------------
   tb_sv2uvm_if tb_sv2uvm_if(s_clk);  
 
   `ifdef DYNAMIC_TMR
@@ -286,16 +312,44 @@ module tb;                                              // top module of UVM tb
     .rst_ni ( s_rst_n )
   );
 
-  pulpino_top
+pulpino_top
   #(
-    .USE_ZERO_RISCY          ( USE_ZERO_RISCY ),
+    .USE_ZERO_RISCY          ( USE_ZERO_RISCY       ),
     .USE_KLESSYDRA_T0_2TH    ( USE_KLESSYDRA_T0_2TH ),
     .USE_KLESSYDRA_T0_3TH    ( USE_KLESSYDRA_T0_3TH ),
     .USE_KLESSYDRA_T1_3TH    ( USE_KLESSYDRA_T1_3TH ),
+    .USE_KLESSYDRA_M         ( USE_KLESSYDRA_M      ),
+    .USE_KLESSYDRA_S1        ( USE_KLESSYDRA_S1     ),
+    .USE_KLESSYDRA_OOO       ( USE_KLESSYDRA_OOO    ),
     .USE_KLESSYDRA_F0_3TH    ( USE_KLESSYDRA_F0_3TH ),
+    .USE_KLESSYDRA_FT13      ( USE_KLESSYDRA_FT13   ),
+    .USE_KLESSYDRA_NETLIST   ( USE_KLESSYDRA_NETLIST ),
     .RISCY_RV32F             ( RISCY_RV32F    ),
     .ZERO_RV32M              ( ZERO_RV32M     ),
-    .ZERO_RV32E              ( ZERO_RV32E     )
+    .ZERO_RV32E              ( ZERO_RV32E     ),
+	//Klessydra Parameters
+   	.KLESS_THREAD_POOL_SIZE        (KLESS_THREAD_POOL_SIZE),
+    .KLESS_LUTRAM_RF               (KLESS_LUTRAM_RF),
+    .KLESS_LATCH_RF                (KLESS_LATCH_RF),
+   	.KLESS_RV32E                   (KLESS_RV32E),
+   	.KLESS_RV32M                   (KLESS_RV32M),
+    .KLESS_superscalar_exec_en     (KLESS_superscalar_exec_en),
+    .KLESS_morph_en                (KLESS_morph_en),
+    .KLESS_fetch_stage_en          (KLESS_fetch_stage_en),
+    .KLESS_branch_predict_en       (KLESS_branch_predict_en),
+    .KLESS_btb_en                  (KLESS_btb_en),
+    .KLESS_btb_len                 (KLESS_btb_len),
+   	.KLESS_accl_en                 (KLESS_accl_en),
+   	.KLESS_replicate_accl_en       (KLESS_replicate_accl_en),
+   	.KLESS_multithreaded_accl_en   (KLESS_multithreaded_accl_en),
+   	.KLESS_SPM_NUM                 (KLESS_SPM_NUM),
+   	.KLESS_Addr_Width              (KLESS_Addr_Width),
+   	.KLESS_SIMD                    (KLESS_SIMD),
+   	.KLESS_MCYCLE_EN               (KLESS_MCYCLE_EN),
+   	.KLESS_MINSTRET_EN             (KLESS_MINSTRET_EN),
+   	.KLESS_MHPMCOUNTER_EN          (KLESS_MHPMCOUNTER_EN),
+   	.KLESS_count_all               (KLESS_count_all),
+   	.KLESS_debug_en                (KLESS_debug_en)
    )
   top_i
   (
@@ -384,7 +438,7 @@ module tb;                                              // top module of UVM tb
 //TB UVM
    /* Inizio del tb uvm, bisognal salvare la virtual interface nel database utilizzando il comando set all'indirizzo *my_uvm_test con  	il nome tb_sv2uvm_if_vi, 
    dopodichè facciamo partire il test */
-
+if (SELEZIONE) begin
   initial 
      begin
                  
@@ -398,7 +452,9 @@ module tb;                                              // top module of UVM tb
   end
    
 
+
   /* Inizio del tb di controllo che si attiva quando il watchdog segnala una anomalia, ed è necessario abortire la simulazione corrente */
+
   initial
   begin
     do begin : control_loop        
@@ -425,16 +481,18 @@ module tb;                                              // top module of UVM tb
   //      #500ns;
 
       /* Salva il risultato della simulazione sul FF results, collegato ad UVM tramite interface*/
-      tb_sv2uvm_if.results = 1;
+     tb_sv2uvm_if.results = 1;
       #10ns  
 
       tb_sv2uvm_if.is_sv_execution_completed=1'b1; // setto a 1 il segnale di comunicazione per indicare la fine del tb sv pulpino
       $display("WE");
 
     end
+   
     while(1);
   end
-
+ end
+  //-----------------------------------------------------------------------------------------------------------------------------------//
   //-----------------------------------------------------------------------------------------------------------------------------------//
 //TB PULPINO
 
@@ -443,10 +501,11 @@ module tb;                                              // top module of UVM tb
     do begin : pulpino_loop        
     int i;
     //-----------------------------------------------------------------------------------------------------------------------------------//
-
-    wait(tb_sv2uvm_if.sv_execution_repeat === 1'b0);
+if (SELEZIONE) begin
+   wait(tb_sv2uvm_if.sv_execution_repeat === 1'b0);
     #10
-    tb_sv2uvm_if.is_sv_execution_completed=1'b0; // setto a 0 il segnale di comunicazione per indicare l inizio del tb sv pulpinos
+    tb_sv2uvm_if.is_sv_execution_completed=1'b0; // setto a 0 il segnale di comunicazione per indicare l inizio del tb sv pulpinos 
+end 
     $display("STA COMINCIANDO TB_PULPINO");    
     //-----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -615,7 +674,6 @@ module tb;                                              // top module of UVM tb
 
   
     spi_check_return_codes(exit_status);
-  
 
   //  $fflush();
 
@@ -649,5 +707,5 @@ module tb;                                              // top module of UVM tb
   `include "tb_mem_pkg.sv"
   `include "spi_debug_test.svh"
   `include "mem_dpi.svh"
-  
+
 endmodule

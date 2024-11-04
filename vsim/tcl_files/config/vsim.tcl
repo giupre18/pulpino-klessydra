@@ -4,6 +4,7 @@ if {$env(USE_KLESSYDRA_NETLIST) == 1} {
 set cmd "vsim -quiet $TB \
    -vopt \
   -L pulpino_lib \
+  -sv_lib ./work/svdpi \
   -L simprims_ver \
   -L unisims_ver \
   -L klessydra_functional_netlist_lib \
@@ -49,6 +50,7 @@ set cmd "vsim -quiet $TB \
 set cmd "vsim -quiet $TB \
    -vopt \
   -L pulpino_lib \
+  -sv_lib ./work/svdpi \
   $VSIM_IP_LIBS \
   +nowarnTRAN \
   +nowarnTSCALE \

@@ -20,7 +20,7 @@ import "DPI-C" function void read_spike_log(input string filename);
 //import "DPI-C" function void spawn_mem (input string program_name, int num_inst, int harc_id, int mem_addr);
 
 parameter KLESS_NOME = "helloworld";
-parameter int     NUM_INSTRUCTIONS = 10000;//10; //100 //1000// //10000 //helloworld inizia ad avere problemi a 240 (startup normale) o 300 (startup marcello)
+parameter int     NUM_INSTRUCTIONS = 100;//10; //100 //1000// //10000 //helloworld inizia ad avere problemi a 240 (startup normale) o 300 (startup marcello)
 `define Nome_file "my_log_file.txt"
 //`define Nome_programma "random_test.elf"
   	//string Nome_programma = $sformatf("%s%s", KLESS_NOME, ".elf");
