@@ -33,18 +33,16 @@ then
 	#  -- ██║  ██╗███████╗███████╗███████║███████║   ██║   ██████╔╝██║  ██║██║  ██║    ╚██████╗╚██████╔╝██║  ██║███████╗███████║  --
 	#  -- ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝  --
     #  -----------------------------------------------------------------------------------------------------------------------------
-
-    USE_KLESSYDRA=1           # Set this to one if you are using a klessydra core (uses the klessydra startup file)
-    USE_KLESSYDRA_T0_2TH=0    # if you are using klessydra-t0-2th (The three pipeline version of klessydra t0), set this to 1
-    USE_KLESSYDRA_T0_3TH=0    # if you are using klessydra-t0-3th (The four pipeline version of klessydra t0), set this to 1
-    USE_KLESSYDRA_T1_3TH=0    # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1CV
-    USE_KLESSYDRA_M=1         # if you are using klessydra-m (A hart morphing version of klessydra T1), set this to 1CV
-    USE_KLESSYDRA_S1=0        # if you are using klessydra-s1 (Single hart version of klessydra t1), set this to 1CV
-    USE_KLESSYDRA_OoO=0       # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1CV
-    USE_KLESSYDRA_F0_3TH=0    # if you are using klessydra-f0-3th (The four pipeline version of klessydra f0), set this to 1
-    USE_KLESSYDRA_FT13=0      # if you are using klessydra-fT13 (The temporally fault tolerant version of the T13), then set this to 1
-    USE_KLESSYDRA_dFT13=0     # if you are using klessydra-dfT13 (The dynamic temporally fault tolerant version of the T13), then set this to 1
-    USE_KLESSYDRA_NETLIST=0   # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1
+	USE_KLESSYDRA=1 # Set this to one if you are using a klessydra core (uses the klessydra startup file)
+	USE_KLESSYDRA_T0_2TH=0 # if you are using klessydra-t0-2th (The three pipeline version of klessydra t0), set this to 1
+	USE_KLESSYDRA_T0_3TH=0 # if you are using klessydra-t0-3th (The four pipeline version of klessydra t0), set this to 1
+	USE_KLESSYDRA_T1_3TH=0 # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1CV
+	USE_KLESSYDRA_M=1   # if you are using klessydra-m (A hart morphing version of klessydra T1), set this to 1CV
+	USE_KLESSYDRA_S1=0     # if you are using klessydra-s1 (Single hart version of klessydra t1), set this to 1CV
+	USE_KLESSYDRA_OoO=0    # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1CV
+	USE_KLESSYDRA_F0_3TH=0 # if you are using klessydra-f0-3th (The four pipeline version of klessydra f0), set this to 1
+	USE_KLESSYDRA_FT13=0 # if you are using klessydra-fT13 (The temporally fault tolerant version of the T13), then set this to 1
+	USE_KLESSYDRA_NETLIST=0 # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1
 
 	#  -------------------------------------------------------------------------------------------------------------------------------------------
 	#  -- ██╗  ██╗██╗     ███████╗███████╗███████╗██╗   ██╗██████╗ ██████╗  █████╗      ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ███████╗  --
@@ -58,23 +56,22 @@ then
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	KLESS_CONTEXT_SWITCH=0          # Enables the context switching between cores
 	KLESS_THREAD_POOL_SIZE=3        # Changing the TPS to less than "number of pipeline stages-1" is not allowed. And making it bigger than "pipeline stages-1" is okay but not recommended
-    KLESS_LUTRAM_RF=0               # Changes the regfile from flip-flop type into LUTRAM type
-    KLESS_LATCH_RF=0                # Changes the regfile from flip-flop type into Latch type (only works if lutram_rf is set to 0)
+	KLESS_LUTRAM_RF=0 				# Changes the regfile from flip-flop type into BRAM type
 	KLESS_RV32E=0                   # Regfile size, Can be set to 32 for RV32E being 0 else 16 for RV32E being set to 1, also chnges the RISCV compiler and Klessydra startup file accordingly
 	KLESS_RV32M=1                   # Enable the M-extension of the risc-v instruction set
-    KLESS_superscalar_exec_en=1     # Enables superscalar execution when set to 1, else the stall of the pipeline will depend on tha latency of the instruction
-    KLESS_morph_en=1                # Enables hardware metamorphosis, that lets the IMT processor morph into an in-order execution processor to avoid stalling
+	KLESS_superscalar_exec_en=1		# Enables superscalar execution when set to 1, else the stall of the pipeline will depend on tha latency of the instruction
+	KLESS_morph_en=1        # Enables hardware metamorphisis, that lets the IMT processor morph into an in-order execution processor to avoid stalling
 	KLESS_fetch_stage_en=0          # Enables the an additional fetch stage which handles some of the data dependency logic (needs morph_en to be set or THREAD_POOL_SIZE < THREAD_POOL_BASELINE)
 	KLESS_branch_predict_en=1       # Enables a 1-bit branch predictor (if set without btb_en), that predicts a taken branch if the offset is negative, else it preicts a positive offset
 	KLESS_btb_en=0                  # Enables the branch target buffer of size defined in 2^btb_len, to enable the btb, branch_predict_en must be set to '1'
 	KLESS_btb_len=6                 # Sets the BTB size which is 2^btb_len
 	KLESS_accl_en=1                 # Enable the generation of the special purpose accelerator
 	KLESS_replicate_accl_en=1       # Set to 1 to replicate the accelerator for every thread
-	KLESS_multithreaded_accl_en=0   # Set to 1 to let the replicated accelerator share the functional units (note: replicate_accl_en must be set to '1')
+	KLESS_multithreaded_accl_en=1   # Set to 1 to let the replicated accelerator share the functional units (note: replicate_accl_en must be set to '1')
 	KLESS_SPM_NUM=4                 # The number of scratchpads available "Minimum allowed is two"
-	KLESS_Addr_Width=14             # This address is for scratchpads. Setting this will make the size of the spm to be: "2^Addr_Width -1"
+	KLESS_Addr_Width=13             # This address is for scratchpads. Setting this will make the size of the spm to be: "2^Addr_Width -1"
 	#   KLESS_SPM_STRT_ADDR          std_logic_vector(31 downto 0) := x"1000_0000";  -- This is starting address of the spms, it shouldn't overlap any sections in the memory map
-	KLESS_SIMD=2                    # Changing the SIMD, would change the number of the functional units in the dsp, and the number of banks in the spms (can be power of 2 only e.g. 1,2,4,8)
+	KLESS_SIMD=$D                    # Changing the SIMD, would change the number of the functional units in the dsp, and the number of banks in the spms (can be power of 2 only e.g. 1,2,4,8)
 	KLESS_MCYCLE_EN=1               # Can be set to 1 or 0 only. Setting to zero will disable MCYCLE and MCYCLEH
 	KLESS_MINSTRET_EN=1             # Can be set to 1 or 0 only. Setting to zero will disable MINSTRET and MINSTRETH
 	KLESS_MHPMCOUNTER_EN=1          # Can be set to 1 or 0 only. Setting to zero will disable all performance counters except "MCYCLE/H" and "MINSTRET/H"
@@ -90,33 +87,26 @@ then
     #  --  ██║  ██║██║███████║╚██████╗   ██║       ╚██████╗╚██████╔╝██║  ██║███████╗███████║██╔╝   ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝███████║  --
     #  --  ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝  --
     #  -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    USE_RI5CY=0      # Set this to one if you are using the riscy core (no hard floats)
+	USE_RI5CY=0 	 # Set this to one if you are using the riscy core (no hard floats)
 	USE_ZERO_RISCY=0 # if you are using zero-riscy, set this to 1
-    RISCY_RV32F=0    # set this to 1 if you are using the Floating Point extensions for riscy only
-    ZERO_RV32M=0     # zeroriscy with the multiplier
-    ZERO_RV32E=0     # zeroriscy with only 16 registers
-    RVC=0            # if you want to have compressed instructions, set this to 1
+	RISCY_RV32F=0	 # set this to 1 if you are using the Floating Point extensions for riscy only
+	ZERO_RV32M=0 	 # zeroriscy with the multiplier
+	ZERO_RV32E=0 	 # zeroriscy with only 16 registers
+	RVC=0			 # if you want to have compressed instructions, set this to 1
 
     #   -----------------------------------------------------------------------------------
-    #   --  ███████╗██╗    ██╗    ██████╗ ███████╗███████╗██╗███╗   ██╗███████╗███████╗  --
-    #   --  ██╔════╝██║    ██║    ██╔══██╗██╔════╝██╔════╝██║████╗  ██║██╔════╝██╔════╝  --
-    #   --  ███████╗██║ █╗ ██║    ██║  ██║█████╗  █████╗  ██║██╔██╗ ██║█████╗  ███████╗  --
-    #   --  ╚════██║██║███╗██║    ██║  ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║██╔══╝  ╚════██║  --
-    #   --  ███████║╚███╔███╔╝    ██████╔╝███████╗██║     ██║██║ ╚████║███████╗███████║  --
-    #   --  ╚══════╝ ╚══╝╚══╝     ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝  --
-    #   -----------------------------------------------------------------------------------
-
-    FM_Size=32                       # Defines the size of the Feature Maps in the convolution tests (can only be multiples of 2, FMs > 32 are not tested)
-    Filter_Size=3                    # Defines the size of the Filters in the convolution tests (can only be 3,5,7,9,11)
-    VSIZE=27                         # Defines the vector size used in the instruction verification klessydra T13 tests
+    #	--  ███████╗██╗    ██╗    ██████╗ ███████╗███████╗██╗███╗   ██╗███████╗███████╗  --
+    #	--  ██╔════╝██║    ██║    ██╔══██╗██╔════╝██╔════╝██║████╗  ██║██╔════╝██╔════╝  --
+    #	--  ███████╗██║ █╗ ██║    ██║  ██║█████╗  █████╗  ██║██╔██╗ ██║█████╗  ███████╗  --
+    #	--  ╚════██║██║███╗██║    ██║  ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║██╔══╝  ╚════██║  --
+    #	--  ███████║╚███╔███╔╝    ██████╔╝███████╗██║     ██║██║ ╚████║███████╗███████║  --
+    #	--  ╚══════╝ ╚══╝╚══╝     ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝  --
+    #	-----------------------------------------------------------------------------------
+	FM_Size=32       				 # Defines the size of the Feature Maps in the convolution tests (can only be multiples of 2, FMs > 32 are not tested)
+	Filter_Size=3   				 # Defines the size of the Filters in the convolution tests (can only be 3,5,7,9,11)
+	VSIZE=1 		 				 # Defines the vector size used in the instruction verification klessydra T13 tests
 	TIME=$(( RANDOM % 2147483647))   # Defines the time used for random generation in different tests
-
-    COREMARK_ITR=1                   # Defines the number of iterations ran by coremark
-
-    # Not a macro, but rather enables or disables the compilation of VGG_libs, uncomment the line to enable the compilation of this library
-    #VGG16_libs=kless_vgg_libs
-
+	COREMARK_ITR=1					 # Defines the number of iterations ran by coremark
 	file=test
 
     #	-------------------------------------------------------------------------------------------
@@ -127,27 +117,85 @@ then
     #   -- ██║░╚═╝░██║███████╗██║░╚═╝░██║	██████╔╝███████╗██║░░░░░██║██║░╚███║███████╗██████╔╝ --
     #   -- ╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░░╚═╝	╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚═╝░░╚══╝╚══════╝╚═════╝░ --
     #	-------------------------------------------------------------------------------------------
-
-    # Define the memory regions and sizes in "HEX"
-    INSTRRAM_ORG=0x80000000
-    INSTRRAM_SIZE=0x20000 # 128KB
-    GLOBALRAM_ORG=0x80100000
-    GLOBALRAM_SIZE=0xFF00000 # 255MB
-    ROM_ORG=0x00050000
-    ROM_SIZE=0x2000 # 8KB
-    HART_STACK_SIZE=0x40000 # 256KB
-    PERIPHERALS=0x10000000
-    # STACK is part of the GLOBALRAM
+    #INSTRRAM_SIZE=131072
+    #INSTRRAM_ORG=0x000000
+    #GLOBALRAM_SIZE=267649024
+    #GLOBALRAM_ORG=0x00100000
+    #ROM_SIZE=8192
+    #ROM_ORG=0x00050000
+    #HART_STACK_SIZE=262144
+    #STACK_SIZE=$((HART_STACK_SIZE * KLESS_THREAD_POOL_SIZE))
+    #STACK_ORG=$((GLOBALRAM_ORG + GLOBALRAM_SIZE))
+    #PERIPHERALS=0x10000000
+    INSTRRAM_SIZE=131072 #290816
+    INSTRRAM_ORG=0x000000
+    GLOBALRAM_SIZE=267386880 #290816
+    GLOBALRAM_ORG=0x00100000
+    ROM_SIZE=8192
+    ROM_ORG=0x00050000 #0x10000004 #0x00050000
+    HART_STACK_SIZE=262144
     STACK_SIZE=$((HART_STACK_SIZE * KLESS_THREAD_POOL_SIZE))
-    STACK_SIZE=$(printf "0x%X" $STACK_SIZE)
     STACK_ORG=$((GLOBALRAM_ORG + GLOBALRAM_SIZE - STACK_SIZE))
-    STACK_ORG=$(printf "0x%X" $STACK_ORG)
+    PERIPHERALS=0x10000000
     STACK_END=$((GLOBALRAM_ORG + GLOBALRAM_SIZE))
     STACK_END=$(echo "obase=16;${STACK_END}" |bc)
     STACK_END=$(echo "0x$STACK_END")
+    #INSTRRAM_SIZE=290816
+    #INSTRRAM_ORG=0x000000
+    #GLOBALRAM_SIZE=267386880
+    #GLOBALRAM_ORG=0x00100000
+    #ROM_SIZE=8192
+    #ROM_ORG=0x00050000
+    #HART_STACK_SIZE=808277
+    #STACK_SIZE=$((HART_STACK_SIZE * KLESS_THREAD_POOL_SIZE))
+    #STACK_ORG=$((GLOBALRAM_ORG + GLOBALRAM_SIZE))
+    #PERIPHERALS=0x10000000
 
 fi
 
+		
+	# Link Common memory modification
+	LINK_COMMON=../ref/link.common.ld
+	LINK_BOOT=../ref/link.boot.ld
+	SPI_DEBUG=../../tb/spi_debug_test.svh
+	PROGRAM_COUNTER=../../ips/Morph/klessydra-m/RTL-Program_Counter_unit.vhd
+	KLESSYDRA_DEFS=../libs/klessydra_lib/general_libs/inc/klessydra_defs.h
+
+	# Temporary Patch of RTL_PROGRAM_COUNTER.vhd (TODO: pass the value)
+	PC_NEW_VALUE=$((INSTRRAM_ORG + 0x80))
+	starting_string=$(cat $PROGRAM_COUNTER | grep "pc(h) <=" | head -2 | tail -1)
+	modified_string=$(echo "$starting_string" | sed "s/\(to_unsigned(\)[0-9]\+/\1$PC_NEW_VALUE/g")
+	sed -i "/$starting_string/c $modified_string" $PROGRAM_COUNTER
+
+	# Starting addresses, in hex
+	actual_instrram_origin_h=$(cat $LINK_COMMON | grep -n "instrram" | head -1 | cut -d ":" -f 3 | awk '{print $3}' | sed 's/.$//' |tr -d "[:blank:]"|awk '{print substr($0,3)}')  	# INSTRRAM starting address in hex
+	actual_rom_origin_h=$(cat $LINK_BOOT| grep -n "rom" | head -1 | cut -d ":" -f 3 | awk '{print $3}' |tr -d "[:blank:]"|awk '{print substr($0,3)}'| sed 's/.$//' )				# ROM starting address in hex
+	actual_globalram_origin_h=$(cat $LINK_COMMON | grep -n "dataram" | head -1 | cut -d ":" -f 3 | awk '{print $3}' |tr -d "[:blank:]"|awk '{print substr($0,3)}'|sed 's/.$//')     	# DATA_RAM starting address in hex
+	actual_stack_origin_h=$(cat $LINK_COMMON | grep -n "stack" | head -1 | cut -d ":" -f 3 | awk '{print $3}' |tr -d "[:blank:]"|awk '{print substr($0,3)}'|sed 's/.$//')           # STACK starting address in hex
+	starting_event_h=$(cat $SPI_DEBUG| grep -n "EVENT_UNIT_BASE_ADDR" | head -1 | cut -d " " -f 3 )
+
+	# Sizes in hex
+	actual_instrram_size_h=$(cat $LINK_COMMON| grep -n "instrram" | head -1 | cut -d ":" -f 3|cut -d "=" -f 3 |tr -d "[:blank:]"|awk '{print substr($0,3)}') 	    # INSTRRAM SIZE in hex
+	actual_rom_size_h=$(cat $LINK_BOOT | grep -n "rom" | head -1 | cut -d ":" -f 3 | awk '{print $6}'|tr -d "[:blank:]"|awk '{print substr($0,3)}')					# ROM SIZE in hex
+	actual_globalram_size_h=$(cat $LINK_COMMON | grep -n "dataram" | head -1 | cut -d ":" -f 3 | awk '{print $6}' |tr -d "[:blank:]"|awk '{print substr($0,3)}') 	# DATA_RAM SIZE in hex
+	actual_stack_size_h=$(cat $LINK_COMMON | grep -n "stack" | head -1 | cut -d ":" -f 3 | awk '{print $6}' |tr -d "[:blank:]"|awk '{print substr($0,3)}')          # STACK SIZE in hex
+	#actual_stack_end_h=$(cat $KLESSYDRA_DEF | grep -n "STACK_START"|tail -1|cut -d "x" -f 2)          # STACK END in hex
+
+	event_value="${PERIPHERALS_ORG#0x}"
+	GLOBALRAM_SIZE_H=$(echo "obase=16;${GLOBALRAM_SIZE}" |bc)
+	INSTRRAM_SIZE_H=$(echo "obase=16;${INSTRRAM_SIZE}" |bc)
+	STACK_SIZE_H=$(echo "obase=16;${STACK_SIZE}" |bc)
+	ROM_SIZE_H=$(echo "obase=16;${ROM_SIZE}" |bc)
+	STACK_ORG_H=$(echo "obase=16;${STACK_ORG}" |bc)
+	new_event_h=$(echo "32'h$event_value")
+
+	sed -i -e "s/\(dataram\s*:\s*ORIGIN\s*=\s*\)0x$actual_globalram_origin_h*\(,\s*LENGTH\s*=\s*\)0x$actual_globalram_size_h*/\1$GLOBALRAM_ORG\20x$GLOBALRAM_SIZE_H/g" $LINK_COMMON
+	sed -i -e "s/\(instrram\s*:\s*ORIGIN\s*=\s*\)0x$actual_instrram_origin_h*\(,\s*LENGTH\s*=\s*\)0x$actual_instrram_size_h*/\1$INSTRRAM_ORG\20x$INSTRRAM_SIZE_H/g" $LINK_COMMON
+	sed -i -e "s/\(stack\s*:\s*ORIGIN\s*=\s*\)0x$actual_stack_origin_h*\(,\s*LENGTH\s*=\s*\)0x$actual_stack_size_h*/\10x$STACK_ORG_H\20x$STACK_SIZE_H/g" $LINK_COMMON
+
+	sed -i -e "s/\(rom\s*:\s*ORIGIN\s*=\s*\)0x$actual_rom_origin_h*\(,\s*LENGTH\s*=\s*\)0x$actual_rom_size_h*/\1$ROM_ORG\2 0x$ROM_SIZE_H/g" $LINK_BOOT
+    sed -i -e "s/\(stack\s*:\s*ORIGIN\s*=\s*\)0x$actual_stack_origin_h*\(,\s*LENGTH\s*=\s*\)0x$actual_stack_size_h*/\10x$STACK_ORG_H\20x$STACK_SIZE_H/g" $LINK_BOOT   
+    sed -i -e "s/^#define STACK_END .*/#define STACK_END $STACK_END/"  $KLESSYDRA_DEFS
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 if [ $USE_RI5CY -eq 1 ]
@@ -256,7 +304,7 @@ A_ORDER="-DA_ORDER="$FM_Size       # Defines the size of the Feature Maps in the
 echo '--' A_ORDER=$FM_Size
 B_ORDER="-DB_ORDER="$Filter_Size   # Defines the size of the Filters in the convolution tests (can only be 3,5,7,9,11)
 echo '--' B_ORDER=$Filter_Size
-KLESS_VSIZE="-DVSIZE="$VSIZE
+KLESS_VSIZE="-DNumOfElements="$VSIZE
 echo '--' KLESS_VSIZE=$VSIZE
 KLESS_TIME="-DTIME="$TIME
 echo '--' KLESS_TIME=$TIME
@@ -276,8 +324,7 @@ PL_NETLIST=""
 cmake "$PULP_GIT_DIRECTORY"/sw/ \
 	-DNETLIST_FILE="$file" \
 	-DTPS="$TPS" \
-    -DVGG16_libs="$VGG16_libs" \
-	-DVSIZE="$KLESS_VSIZE" \
+	-DNUMOFELEMENTS="$KLESS_VSIZE" \
 	-DTIME="$KLESS_TIME" \
 	-DA_ORDER="$A_ORDER" \
 	-DB_ORDER="$B_ORDER" \
@@ -301,7 +348,6 @@ cmake "$PULP_GIT_DIRECTORY"/sw/ \
     -DUSE_KLESSYDRA_OoO="$USE_KLESSYDRA_OoO" \
 	-DUSE_KLESSYDRA_F0_3TH="$USE_KLESSYDRA_F0_3TH" \
 	-DUSE_KLESSYDRA_FT13="$USE_KLESSYDRA_FT13" \
-    -DUSE_KLESSYDRA_dFT13="$USE_KLESSYDRA_dFT13" \
 	-DUSE_KLESSYDRA_NETLIST="$USE_KLESSYDRA_NETLIST" \
     -DUSE_ZERO_RISCY="$USE_ZERO_RISCY" \
     -DZERO_RV32M="$ZERO_RV32M" \
@@ -309,7 +355,6 @@ cmake "$PULP_GIT_DIRECTORY"/sw/ \
     -DKLESS_CONTEXT_SWITCH="$KLESS_CONTEXT_SWITCH" \
 	-DKLESS_THREAD_POOL_SIZE="$KLESS_THREAD_POOL_SIZE" \
 	-DKLESS_LUTRAM_RF="$KLESS_LUTRAM_RF" \
-    -DKLESS_LATCH_RF="$KLESS_LATCH_RF" \
 	-DKLESS_RV32E="$KLESS_RV32E" \
 	-DKLESS_RV32M="$KLESS_RV32M" \
 	-DKLESS_superscalar_exec_en="$KLESS_superscalar_exec_en" \

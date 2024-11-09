@@ -207,3 +207,82 @@ beginning of the program:
 
 Take a look at the `sw/libs/Arduino_libs` subfolder for more information about
 the status of the currently supported libraries.
+Automatic change of the memory map in the Klessydra RISC-V processor. This repository contains all the files to patch. 
+
+# Klessydra_memory_changes
+# Klessydra_Automatic_memory_map_change
+# Klessydra Automatic memory map change
+**Status:** _Under Test_
+
+
+This repository is dedicated to the automatic change of the memory map in the Klessydra RISC-V processor. It contains all the necessary files to patch for enabling this feature.
+The cmake_configure.klessydra-m.gcc.sh script now includes new variables for customizing the memory map, specifying the starting address and size of each memory region:
+-    INSTRRAM_SIZE
+-    INSTRRAM_ORG
+-    GLOBALRAM_SIZE
+-    GLOBALRAM_ORG
+-    ROM_SIZE
+-    ROM_ORG
+-    HART_STACK_SIZE
+-    PERIPHERALS
+  
+All updated files have been made parametric, allowing easy and fast memory reconfiguration. The information provided in the CMake configuration is automatically propagated to both hardware and software libraries.
+
+The information specified in the cmake is automatically propagated in the hardware and software libraries, allowing for an easy and fast memory reconfiguration.
+In the following a brief explanation of how the variables are propagated from the cmake down to the specific files is provided both by the means of text and a graphic diagram.
+
+For the hardware files, the variables specified in the CMakeConfigure are passed through the following sequence: CMakeSim.txt, python files (s19toboot.py and s19toslm.py) &  vsim.tcl, tb.sv, pulpino_top.sv, core_region.sv & peripherals.sv, sp_data_ram.sv & instr_ram.sv & apb_bus.sv, in order.
+
+In the case of software libraries, the variables specified in the CMAKECONFIGURE are passed to the CMakeLists.txt, that set them as defines for the following libraries
+
+_________
+
+**List of the patched files:**
+
+```
+Klessydra_memory_changes
+├── ips
+├── rtl
+│   ├── core_region.sv
+│   ├── includes
+│   │   └── apb_bus.sv
+│   ├── instr_ram_wrap.sv
+│   ├── periph_bus_wrap.sv
+│   ├── peripherals.sv
+│   ├── pulpino_top.sv
+│   └── sp_ram_wrap.sv
+├── sw
+│   ├── apps
+│   │   └── CMakeSim.txt
+│   ├── cmake_configure.klessydra-m.gcc.sh
+│   ├── CMakeLists.txt
+│   ├── libs
+│   │   ├── klessydra_lib
+│   │   │   └── general_libs
+│   │   │       └── inc
+│   │   │           └── klessydra_defs.h
+│   │   └── sys_lib
+│   │       └── inc
+│   │           └── pulpino.h
+│   ├── ref
+│   │   ├── crt0.klessydra_E.S
+│   │   ├── crt0.klessydra.S
+│   │   ├── link.boot.ld
+│   │   └── link.common.ld
+│   └── utils
+│       ├── s19toboot.py
+│       └── s19toslm.py
+├── tb
+│   ├── spi_debug_test.svh
+│   ├── tb_spi_pkg.sv
+│   └── tb.sv
+└── vsim
+    └── tcl_files
+        └── config
+            └── vsim.tcl
+```
+
+![image](https://github.com/MarcoAngioli/Klessydra_memory_changes/assets/104903225/664f813e-b5df-4122-bcb6-217174b2382d)
+
+
+

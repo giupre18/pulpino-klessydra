@@ -13,7 +13,8 @@
 module periph_bus_wrap
   #(
     parameter APB_ADDR_WIDTH = 32,
-    parameter APB_DATA_WIDTH = 32
+    parameter APB_DATA_WIDTH = 32,
+    parameter PERIPHERALS   = 32'h1000_0000
     )
    (
     input logic       clk_i,
