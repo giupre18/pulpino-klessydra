@@ -1,0 +1,31 @@
+#!/usr/bin/expect
+
+# Two arguments check
+if { [llength $argv] != 2 } {
+    puts "Usage: script_name program_name num_instructions"
+    exit 1
+}
+
+# Set the LD_LIBRARY_PATH to use the correct libraries
+set env(LD_LIBRARY_PATH) "/usr/lib/x86_64-linux-gnu:$env(LD_LIBRARY_PATH)"
+
+# ELF file and instructions number
+set elf_file [lindex $argv 0]
+set num_instructions [lindex $argv 1]
+set timeout 1
+
+# Log file setup
+log_file -noappend "./my_log_file.txt"
+
+# spawn spike
+spawn spike -d --isa=RV32GC $elf_file
+
+# expect the prompt
+expect "spike>"
+send "run $num_instructions\r"
+expect "spike>"
+send "q\r"
+expect eof
+
+
+
