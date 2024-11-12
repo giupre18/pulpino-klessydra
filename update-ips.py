@@ -85,7 +85,7 @@ else:
 
     import ipstools
 
-kless_remote = remote
+kless_remote = "https://github.com/klessydra/"
 pulp_remote ="https://github.com/pulp-platform/" #temporary solution for fetching from pulp-platform on github
 
 # creates an IPApproX database

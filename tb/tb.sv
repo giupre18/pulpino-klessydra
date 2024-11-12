@@ -690,11 +690,11 @@ end
   
     spi_check_return_codes(exit_status);
 
-  //  $fflush();
+    $fflush();
 
   //        #50000ns;
     #100ns
-   // $stop();
+   $stop();
 //RELEASE CONTROL TO UVM      
   //-----------------------------------------------------------------------------------------------------------------------------------//
     $display("Release control to UVM  %0d", exit_status );

@@ -33,7 +33,6 @@ then
 	#  -- ██║  ██╗███████╗███████╗███████║███████║   ██║   ██████╔╝██║  ██║██║  ██║    ╚██████╗╚██████╔╝██║  ██║███████╗███████║  --
 	#  -- ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝  --
     #  -----------------------------------------------------------------------------------------------------------------------------
-
     USE_KLESSYDRA=1           # Set this to one if you are using a klessydra core (uses the klessydra startup file)
     USE_KLESSYDRA_T0_2TH=0    # if you are using klessydra-t0-2th (The three pipeline version of klessydra t0), set this to 1
     USE_KLESSYDRA_T0_3TH=0    # if you are using klessydra-t0-3th (The four pipeline version of klessydra t0), set this to 1
