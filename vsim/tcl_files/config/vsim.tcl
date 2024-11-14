@@ -13,6 +13,8 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
+  -gKLESS_NAME=$env(KLESS_NAME) \
+  -gNAME_PROGRAM=$env(NAME_PROGRAM) \
   -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
   -gSPI=$env(SPI) \
@@ -69,6 +71,8 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
+  -gKLESS_NAME=$env(KLESS_NAME) \
+  -gNAME_PROGRAM=$env(NAME_PROGRAM) \
   -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
   -gSPI=$env(SPI) \
