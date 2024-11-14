@@ -20,7 +20,15 @@ import "DPI-C" function void read_spike_log(input string filename);
 //import "DPI-C" function void spawn_mem (input string program_name, int num_inst, int harc_id, int mem_addr);
 
 parameter KLESS_NOME = "helloworld";
-parameter int     NUM_INSTRUCTIONS = 100;//10; //100 //1000// //10000 //helloworld inizia ad avere problemi a 240 (startup normale) o 300 (startup marcello)
+
+int effective_num_instructions = 10; //10; //100 //1000// //10000 //helloworld starts having problems at 240 (normal startup) or 300 (marcello startup)
+
+    // Function to update the value of effective_num_instructions
+    function void set_num_instructions(int num);
+        effective_num_instructions = num;
+    endfunction
+
+
 `define Nome_file "my_log_file.txt"
 //`define Nome_programma "random_test.elf"
   	//string Nome_programma = $sformatf("%s%s", KLESS_NOME, ".elf");
@@ -540,7 +548,7 @@ class my_spike extends uvm_monitor;
 	endfunction: read_output_spike 
 
 	task spawn_ISS();
-    spawn_and_run_spike_new(Nome_programma, NUM_INSTRUCTIONS);
+    spawn_and_run_spike_new(Nome_programma, effective_num_instructions);
 	endtask: spawn_ISS
 
 	function string remove_char(string str, string char_to_remove); // Function to remove a character from a string
@@ -1024,7 +1032,7 @@ class my_uvm_test extends uvm_test;
 			begin
 				wait(m_tb_sv2uvm_if.is_sv_execution_completed === 1'b1); 
 					$display("Esecuzione programma terminata");
-					$display("Sono arrivato alla istruzione %0d su %0d",current_inst, NUM_INSTRUCTIONS);
+					$display("Sono arrivato alla istruzione %0d su %0d",current_inst, effective_num_instructions);
 			end
 			begin
 				forever begin
@@ -1037,9 +1045,9 @@ class my_uvm_test extends uvm_test;
 						//$display("c\tc\tc\tc\tc\tc\tc");
 					end
 
-					if (current_inst>NUM_INSTRUCTIONS) begin //Ho terminato le istruzioni da eseguire?
-						$display("Ho terminato le %0d istruzioni di Spike!", NUM_INSTRUCTIONS);
-						$display("Ho confrontato %0d istruzioni con Klessydra", NUM_INSTRUCTIONS-(start_inst_num-1)); //-1 è perchè current inst parte da 1
+					if (current_inst>effective_num_instructions) begin //Ho terminato le istruzioni da eseguire?
+						$display("Ho terminato le %0d istruzioni di Spike!", effective_num_instructions);
+						$display("Ho confrontato %0d istruzioni con Klessydra", effective_num_instructions-(start_inst_num-1)); //-1 è perchè current inst parte da 1
 						break;
 					end
 
@@ -1057,7 +1065,7 @@ class my_uvm_test extends uvm_test;
 						data_to_match_s=match_pc(spike_data.my_pc_0, spike_data); //ri-creo l'item di Spike che confronterò
 						$display("current_inst: %0d current spike_pc: %0x",start_inst_num, data_to_match_s.my_pc_0);
 						start_inst_num=current_inst;
-						if (start_inst_num>=NUM_INSTRUCTIONS) begin
+						if (start_inst_num>=effective_num_instructions) begin
 							$display("Unable to find the start of user program!");	
 							break;
 						end 
@@ -1162,7 +1170,7 @@ class my_uvm_test extends uvm_test;
 				end
 			end
 		join_any
-		//$display("Ho finito di confrontare %0d istruzioni", NUM_INSTRUCTIONS-(start_inst_num-2)); //-1 è perchè current inst parte da 1
+		//$display("Ho finito di confrontare %0d istruzioni", effective_num_instructions-(start_inst_num-2)); //-1 è perchè current inst parte da 1
 		$display("Trovate %0d differenze",total_differences-attempts_to_start); //non conto i confronti iniziali
 		$display("Accessi in memoria: %0d - Differenze memoria: %0d",num_mem, mem_diff);
 		$display("Check passati: %0d",total_check_passed);

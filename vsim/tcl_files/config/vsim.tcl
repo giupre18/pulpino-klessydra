@@ -13,7 +13,12 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
+  -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
+  -gSPI=$env(SPI) \
+  -gBAUDRATE=$env(BAUDRATE) \
+  -gCLK_USE_FLL=$env(CLK_USE_FLL) \
+  -gTEST=$env(TEST) \
   -gUSE_KLESSYDRA_NETLIST=$env(USE_KLESSYDRA_NETLIST) \
   -gUSE_ZERO_RISCY=$env(USE_ZERO_RISCY) \
   -gRISCY_RV32F=$env(RISCY_RV32F) \
@@ -64,7 +69,12 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
+  -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
+  -gSPI=$env(SPI) \
+  -gBAUDRATE=$env(BAUDRATE) \
+  -gCLK_USE_FLL=$env(CLK_USE_FLL) \
+  -gTEST=$env(TEST) \
   -gUSE_KLESSYDRA_T0_2TH=$env(USE_KLESSYDRA_T0_2TH) \
   -gUSE_KLESSYDRA_T0_3TH=$env(USE_KLESSYDRA_T0_3TH) \
   -gUSE_KLESSYDRA_T1_3TH=$env(USE_KLESSYDRA_T1_3TH) \

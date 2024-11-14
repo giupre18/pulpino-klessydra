@@ -3,7 +3,6 @@ MESSAGE("")
 MESSAGE("*********************")
 MESSAGE("** KLESSYDRA CORES **")
 MESSAGE("*********************")
-MESSAGE(STATUS "${LightGreen}UVM_TB${ColourReset} = ${UVM_TB}")
 MESSAGE(STATUS "${LightGreen}USE_KLESSYDRA_TEST${ColourReset} = ${USE_KLESSYDRA_TEST}")
 MESSAGE(STATUS "${LightGreen}USE_KLESSYDRA${ColourReset} = ${USE_KLESSYDRA}")
 MESSAGE(STATUS "${LightGreen}USE_KLESSYDRA_T0_2TH${ColourReset} = ${USE_KLESSYDRA_T0_2TH}")
@@ -18,6 +17,16 @@ MESSAGE(STATUS "${LightGreen}USE_KLESSYDRA_dFT13${ColourReset} = ${USE_KLESSYDRA
 MESSAGE(STATUS "${LightGreen}USE_KLESSYDRA_NETLIST${ColourReset} = ${USE_KLESSYDRA_NETLIST}")
 MESSAGE(STATUS "${LightGreen}USE_RI5CY${ColourReset} = ${USE_RI5CY}")
 MESSAGE(STATUS "${LightGreen}USE_ZERO_RISCY${ColourReset} = ${USE_ZERO_RISCY}")
+MESSAGE("")
+MESSAGE("*********************")
+MESSAGE("** COMMAND FOR TB **")
+MESSAGE("*********************")
+MESSAGE(STATUS "${LightYellow}UVM_TB${ColourReset} = ${UVM_TB}")
+MESSAGE(STATUS "${LightYellow}NUM_INSTRUCTIONS${ColourReset} = ${NUM_INSTRUCTIONS}")
+MESSAGE(STATUS "${LightYellow}SPI${ColourReset} = ${SPI}")
+MESSAGE(STATUS "${LightYellow}BAUDRATE${ColourReset} = ${BAUDRATE}")
+MESSAGE(STATUS "${LightYellow}CLK_USE_FLL${ColourReset} = ${CLK_USE_FLL}")
+MESSAGE(STATUS "${LightYellow}TEST${ColourReset} = ${TEST}")
 MESSAGE("")
 MESSAGE("*************************")
 MESSAGE("** RISCY CORES CONFIGS **")
@@ -108,7 +117,12 @@ set(RTL_ROM_SIZE "${RTL_ROM_SIZE}#")
 macro(add_sim_targets NAME)
   set(SETENV "env VSIM_DIR=${PULP_MODELSIM_DIRECTORY} \
   NETLIST_FILE=${NETLIST_FILE} \
+  NUM_INSTRUCTIONS=${NUM_INSTRUCTIONS} \
   UVM_TB=${UVM_TB} \
+  SPI=${SPI} \
+  BAUDRATE=${BAUDRATE} \
+  CLK_USE_FLL=${CLK_USE_FLL} \
+  TEST=${TEST} \
   USE_KLESSYDRA_NETLIST=${USE_KLESSYDRA_NETLIST} \
   USE_KLESSYDRA_T1_3TH=${USE_KLESSYDRA_T1_3TH} \
   USE_KLESSYDRA_M=${USE_KLESSYDRA_M} \

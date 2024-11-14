@@ -129,7 +129,7 @@ module tb;                                              // top module of UVM tb
   timeunit      1ns;                                    // timescal of pulpino tb - time ns
   timeprecision 1ps;
   genvar i;
-  
+
     parameter UVM_TB = 0;  // select uvm with 1 or 0 for tb_normal
   // +MEMLOAD= valid values are "SPI", "STANDALONE" "PRELOAD", "" (no load of L2)
   parameter  SPI            = "QUAD";    // valid values are "SINGLE", "QUAD"
@@ -237,6 +237,8 @@ module tb;                                              // top module of UVM tb
 //---------------------------------------------------------------------------------------------------------------------------------------
   import uvm_pkg::*;              // import the uvm package
   import tb_uvm_pkg::*;           // import the new package defined in the separate file 
+   parameter int NUM_INSTRUCTIONS = 10;
+
   //---------------------------------------------------------------------------------------------------------------------------------------
   tb_sv2uvm_if tb_sv2uvm_if(s_clk);  
 
@@ -456,7 +458,7 @@ pulpino_top
 if (UVM_TB) begin
   initial 
      begin
-                 
+        tb_uvm_pkg::set_num_instructions(NUM_INSTRUCTIONS);    
         uvm_config_db#(virtual tb_sv2uvm_if)::set(
                                                   uvm_root::get(), 
                                                   "*my_uvm_test",
