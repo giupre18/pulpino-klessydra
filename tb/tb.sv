@@ -130,7 +130,7 @@ module tb;                                              // top module of UVM tb
   timeprecision 1ps;
   genvar i;
   
-    parameter SELECTION_UVM = 1;  // select uvm with 1 or 0 for tb_normal
+    parameter UVM_TB = 0;  // select uvm with 1 or 0 for tb_normal
   // +MEMLOAD= valid values are "SPI", "STANDALONE" "PRELOAD", "" (no load of L2)
   parameter  SPI            = "QUAD";    // valid values are "SINGLE", "QUAD"
   parameter  BAUDRATE       = (781250*4);    // 1562500
@@ -453,7 +453,7 @@ pulpino_top
 //TB UVM
    /* Inizio del tb uvm, bisognal salvare la virtual interface nel database utilizzando il comando set all'indirizzo *my_uvm_test con  	il nome tb_sv2uvm_if_vi, 
    dopodichè facciamo partire il test */
-if (SELECTION_UVM) begin
+if (UVM_TB) begin
   initial 
      begin
                  
@@ -516,7 +516,7 @@ if (SELECTION_UVM) begin
     do begin : pulpino_loop        
     int i;
     //-----------------------------------------------------------------------------------------------------------------------------------//
-if (SELECTION_UVM) begin
+if (UVM_TB) begin
    wait(tb_sv2uvm_if.sv_execution_repeat === 1'b0);
     #10
     tb_sv2uvm_if.is_sv_execution_completed=1'b0; // setto a 0 il segnale di comunicazione per indicare l inizio del tb sv pulpinos 
