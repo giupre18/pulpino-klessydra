@@ -248,16 +248,18 @@ macro(add_sim_targets NAME)
   add_custom_target(${NAME}.vsim
     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/utils/spike_new.exp ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}
     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/$<TARGET_PROPERTY:${NAME}.elf,TB>\\;'"
     WORKING_DIRECTORY ./${SUBDIR}
     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim"
+    COMMENT "Running ${NAME} in ModelSim "
     ${USES_TERMINAL})
 
   # run in modelsim in batch mode, output is only generated after simulation terminates
   add_custom_target(${NAME}.vsimc
     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/utils/spike_new.exp ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}
     COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/$<TARGET_PROPERTY:${NAME}.elf,TB>\\; run -a\\; exit\\;' >vsim.log"
     COMMAND tail -n +1 -- ./stdout/*
     WORKING_DIRECTORY ./${SUBDIR}
@@ -268,6 +270,7 @@ macro(add_sim_targets NAME)
   add_custom_target(${NAME}.vsimf
     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/utils/spike_new.exp ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}
     COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/$<TARGET_PROPERTY:${NAME}.elf,TB>\\; source tcl_files/run_netlist.tcl\\; exit\\;' >vsim.log"
     COMMAND tail -n +1 -- ./stdout/*
     WORKING_DIRECTORY ./${SUBDIR}
