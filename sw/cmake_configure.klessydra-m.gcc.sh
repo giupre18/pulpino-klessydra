@@ -46,6 +46,18 @@ then
     USE_KLESSYDRA_NETLIST=0   # if you are using klessydra-t1-3th (The four pipeline version of klessydra t1), set this to 1
 
 	#  -------------------------------------------------------------------------------------------------------------------------------------------
+# Command for tb -----------------------------------------------------------------------------------------------------------------------------
+    UVM_TB=0		      # Set 1 to use uvm tb that uses the spike simulator as gold mode, else 0 for normal tb
+    NUM_INSTRUCTIONS=100       # allows you to change the instructions to be executed //10; //100 //1000// //10000
+    KLESS_NAME="random_test"   # change the name of klessydra program
+    NAME_PROGRAM="random_test.elf" # change the name of file.elf
+    SPI=QUAD                # valid values are "SINGLE", "QUAD"
+    BAUDRATE=3125000      #1562500		781250*4
+    CLK_USE_FLL=0             #0 or 1
+    TEST=                   #valid values are "" (NONE), "DEBUG"
+
+#  -------------------------------------------------------------------------------------------------------------------------------------------
+
 	#  -- ██╗  ██╗██╗     ███████╗███████╗███████╗██╗   ██╗██████╗ ██████╗  █████╗      ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ███████╗  --
 	#  -- ██║ ██╔╝██║     ██╔════╝██╔════╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ ██╔════╝  --
 	#  -- █████╔╝ ██║     █████╗  ███████╗███████╗ ╚████╔╝ ██║  ██║██████╔╝███████║    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗███████╗  --
@@ -291,6 +303,14 @@ cmake "$PULP_GIT_DIRECTORY"/sw/ \
     -DITERATIONS="$COREMARK_ITR" \
     -DRISCY_RV32F="$RISCY_RV32F" \
     -DUSE_KLESSYDRA="$USE_KLESSYDRA" \
+    -DUVM_TB="$UVM_TB" \
+    -DNUM_INSTRUCTIONS="$NUM_INSTRUCTIONS" \
+    -DKLESS_NAME="$KLESS_NAME" \
+    -DNAME_PROGRAM="$NAME_PROGRAM" \
+    -DSPI="$SPI" \
+    -DBAUDRATE="$BAUDRATE" \
+    -DCLK_USE_FLL="$CLK_USE_FLL" \
+    -DTEST="$TEST" \
     -DUSE_KLESSYDRA_TEST="$USE_KLESSYDRA_TEST" \
     -DUSE_KLESSYDRA_T0_2TH="$USE_KLESSYDRA_T0_2TH" \
     -DUSE_KLESSYDRA_T0_3TH="$USE_KLESSYDRA_T0_3TH" \
