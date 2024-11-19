@@ -23,8 +23,6 @@ MESSAGE("** COMMAND FOR TB **")
 MESSAGE("*********************")
 MESSAGE(STATUS "${LightYellow}UVM_TB${ColourReset} = ${UVM_TB}")
 MESSAGE(STATUS "${LightYellow}NUM_INSTRUCTIONS${ColourReset} = ${NUM_INSTRUCTIONS}")
-MESSAGE(STATUS "${LightYellow}KLESS_NAME${ColourReset} = ${KLESS_NAME}")
-MESSAGE(STATUS "${LightYellow}NAME_PROGRAM${ColourReset} = ${NAME_PROGRAM}")
 MESSAGE(STATUS "${LightYellow}SPI${ColourReset} = ${SPI}")
 MESSAGE(STATUS "${LightYellow}BAUDRATE${ColourReset} = ${BAUDRATE}")
 MESSAGE(STATUS "${LightYellow}CLK_USE_FLL${ColourReset} = ${CLK_USE_FLL}")
@@ -120,8 +118,6 @@ macro(add_sim_targets NAME)
   set(SETENV "env VSIM_DIR=${PULP_MODELSIM_DIRECTORY} \
   NETLIST_FILE=${NETLIST_FILE} \
   NUM_INSTRUCTIONS=${NUM_INSTRUCTIONS} \
-  KLESS_NAME=${KLESS_NAME} \
-  NAME_PROGRAM=${NAME_PROGRAM} \
   UVM_TB=${UVM_TB} \
   SPI=${SPI} \
   BAUDRATE=${BAUDRATE} \

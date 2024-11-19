@@ -19,10 +19,11 @@ import "DPI-C" function void spawn_and_run_spike_new(input string program_name, 
 import "DPI-C" function void read_spike_log(input string filename);
 //import "DPI-C" function void spawn_mem (input string program_name, int num_inst, int harc_id, int mem_addr);
 
-  string KLESS_NOME = "helloworld";
-function void set_kless_name(string klessname);
-        KLESS_NOME = klessname;
-    endfunction
+string test_base_name_s; //<program_name>
+function void set_test_base_name(string test_name);
+  test_base_name_s = test_name;
+endfunction
+
 int effective_num_instructions = 10; //10; //100 //1000// //10000 //helloworld starts having problems at 240 (normal startup) or 300 (marcello startup)
 
     // Function to update the value of effective_num_instructions
@@ -32,15 +33,16 @@ int effective_num_instructions = 10; //10; //100 //1000// //10000 //helloworld s
 
 
 `define Nome_file "my_log_file.txt"
-//`define Nome_programma "random_test.elf"
-  	//string Nome_programma = $sformatf("%s%s", KLESS_NOME, ".elf");
-	//string Nome_programma = {$} (Nome_programma, ".elf");
-	//string Nome_programma = {KLESS_NOME, ".elf"}; //usa questo
-	
-	string Nome_programma= "helloworld.elf";//"helloworld.elf";//"random_test.elf";
-function void set_name_programm(string name);
-       Nome_programma = name;
-    endfunction
+////`define Nome_programma "random_test.elf"
+//  	//string Nome_programma = $sformatf("%s%s", KLESS_NOME, ".elf");
+//	//string Nome_programma = {$} (Nome_programma, ".elf");
+//	//string Nome_programma = {KLESS_NOME, ".elf"}; //usa questo
+//	
+string test_name_s; //"<program_name>.elf"
+function void set_test_name(string name);
+  test_name_s = name;
+endfunction
+
 //ITEM CLASS
 //Classe oggetto (anche chiamata package) che contiene le informazioni scambiate: pc e RF 
 class my_item extends uvm_sequence_item;
@@ -553,7 +555,7 @@ class my_spike extends uvm_monitor;
 	endfunction: read_output_spike 
 
 	task spawn_ISS();
-    spawn_and_run_spike_new(Nome_programma, effective_num_instructions);
+    spawn_and_run_spike_new(test_name_s, effective_num_instructions);
 	endtask: spawn_ISS
 
 	function string remove_char(string str, string char_to_remove); // Function to remove a character from a string
@@ -956,9 +958,9 @@ class my_uvm_test extends uvm_test;
 		kless_data_prev= my_item::new();
 		data_to_match_k=my_item::new();
 		data_to_match_s=my_item::new();
-		kless_data_prev.my_pc_0=32'h00000000; //Inizializzo il pc di Klessydra 
+		kless_data_prev.my_pc_0=32'h00000000; //Inizializzo il pc di Klessydra
 		spike_data_prev.my_pc_0=32'h00000001; //Inizializzo il pc di Spike
-		$display("PARAMETRO: %s, nome programma: %s",KLESS_NOME, Nome_programma);
+		$display("PARAMETRO: %s, nome programma: %s", test_base_name_s, test_name_s);
 		phase.drop_objection(this);
    endfunction : build_phase
 

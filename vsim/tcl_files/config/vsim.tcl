@@ -1,5 +1,7 @@
 source tcl_files/config/vsim_ips.tcl
 
+set TEST_NAME [glob *.elf]
+
 if {$env(USE_KLESSYDRA_NETLIST) == 1} {
 set cmd "vsim -quiet $TB \
    -vopt \
@@ -13,8 +15,7 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
-  -gKLESS_NAME=$env(KLESS_NAME) \
-  -gNAME_PROGRAM=$env(NAME_PROGRAM) \
+  -gTEST_NAME=$TEST_NAME \
   -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
   -gSPI=$env(SPI) \
@@ -71,8 +72,7 @@ set cmd "vsim -quiet $TB \
   +nowarnTSCALE \
   +nowarnTFMPC \
   +MEMLOAD=$MEMLOAD \
-  -gKLESS_NAME=$env(KLESS_NAME) \
-  -gNAME_PROGRAM=$env(NAME_PROGRAM) \
+  -gTEST_NAME=$TEST_NAME \
   -gNUM_INSTRUCTIONS=$env(NUM_INSTRUCTIONS) \
   -gUVM_TB=$env(UVM_TB) \
   -gSPI=$env(SPI) \
