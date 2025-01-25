@@ -6,7 +6,6 @@
 
 reset_handler:
 
-  li t4, 0x94
   csrrw x0, mtvec, t4
   mv  x1, x0
   mv  x2, x1
@@ -39,6 +38,8 @@ reset_handler:
   mv x29, x1
   mv x30, x1
   mv x31, x1
+
+
 
 reset:
 	li ra,0x020000;            #initialize return address

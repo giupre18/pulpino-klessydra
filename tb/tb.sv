@@ -28,29 +28,29 @@ parameter int     MEM_SIZE         =     66846720;//16384;//   8192;     //  668
 `define   EXCEPTION_SIGNAL_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.set_except_condition; //exception signal path for UVM FI tests, tutti i thread
 
 `define   HARC_IF_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.harc_IF; //HARC signal path for UVM FI tests, thread 0
-`define   HARC_ID_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Prg_Ctr.harc_ID; //HARC signal path for UVM FI tests, thread 0
+`define   HARC_ID_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.Prg_Ctr.harc_ID; //HARC signal path for UVM FI tests, thread 0
 `define   HARC_EXEC_PATH      tb.top_i.core_region_i.CORE.RISCV_CORE.harc_EXEC; //HARC signal path for UVM FI tests, thread 0
 `define   HARC_WB_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.Pipe.RF.harc_WB //HARC signal path for UVM FI tests, thread 0
 //SEGNALI PC DEI VARI HARC
-`define   PC_PATH_0             tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Prg_Ctr.pc[0] //PC signal path for UVM FI tests, thread 0
-//`define   PC_PATH_1             tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Prg_Ctr.pc[1] //PC signal path for UVM FI tests, thread 1
-//`define   PC_PATH_2             tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Prg_Ctr.pc[2] //PC signal path for UVM FI tests, thread 2
-`define   PC_PATH_IE            tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Pipe.pc_IE
-`define   PC_PATH_WB            tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Pipe.pc_WB
-`define   REG_FILE_PATH         tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.Pipe.regfile[0]
-`define   MTVEC_PATH            tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.CSR.MTVEC[0];
-`define   MSTATUS_PATH          tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.CSR.MSTATUS[0];
-`define   MCAUSE_PATH           tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.CSR.MCAUSE[0];
-`define   MEPC_PATH             tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.CSR.MEPC[0];
-`define   MIP_PATH              tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.CSR.MIP[0];
+`define   PC_PATH_0             tb.top_i.core_region_i.CORE.RISCV_CORE.Prg_Ctr.pc[0] //PC signal path for UVM FI tests, thread 0
+//`define   PC_PATH_1             tb.top_i.core_region_i.CORE.RISCV_CORE.Prg_Ctr.pc[1] //PC signal path for UVM FI tests, thread 1
+//`define   PC_PATH_2             tb.top_i.core_region_i.CORE.RISCV_CORE.Prg_Ctr.pc[2] //PC signal path for UVM FI tests, thread 2
+`define   PC_PATH_IE            tb.top_i.core_region_i.CORE.RISCV_CORE.Pipe.pc_IE
+`define   PC_PATH_WB            tb.top_i.core_region_i.CORE.RISCV_CORE.Pipe.pc_WB
+`define   REG_FILE_PATH         tb.top_i.core_region_i.CORE.RISCV_CORE.Pipe.regfile[0]
+`define   MTVEC_PATH            tb.top_i.core_region_i.CORE.RISCV_CORE.CSR.MTVEC[0];
+`define   MSTATUS_PATH          tb.top_i.core_region_i.CORE.RISCV_CORE.CSR.MSTATUS[0];
+`define   MCAUSE_PATH           tb.top_i.core_region_i.CORE.RISCV_CORE.CSR.MCAUSE[0];
+`define   MEPC_PATH             tb.top_i.core_region_i.CORE.RISCV_CORE.CSR.MEPC[0];
+`define   MIP_PATH              tb.top_i.core_region_i.CORE.RISCV_CORE.CSR.MIP[0];
 //SEGNALE DI CLOCK
-`define   CLOCK_PATH            tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.clk_i;
+`define   CLOCK_PATH            tb.top_i.core_region_i.CORE.RISCV_CORE.clk_i;
 //-------------------------------------------------------------------------------------------
 //Segnali di memoria
-`define   DATA_ADDR_PATH         tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.data_addr_o;
-`define   DATA_WDATA_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.data_wdata_o;
-`define   DATA_RDATA_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.data_rdata_i;
-`define   DATA_WE_PATH           tb.top_i.core_region_i.CORE.RISCV_CORE.MORPH_inst.data_we_o;
+`define   DATA_ADDR_PATH         tb.top_i.core_region_i.CORE.RISCV_CORE.data_addr_o;
+`define   DATA_WDATA_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.data_wdata_o;
+`define   DATA_RDATA_PATH        tb.top_i.core_region_i.CORE.RISCV_CORE.data_rdata_i;
+`define   DATA_WE_PATH           tb.top_i.core_region_i.CORE.RISCV_CORE.data_we_o;
 //-------------------------------------------------------------------------------------------
 
 `define EXIT_SUCCESS  0
