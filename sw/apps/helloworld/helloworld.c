@@ -18,9 +18,19 @@ int main() {
     __asm__ (
    
    
-    "li  t1, 0x65\n"
-    "li t0, 0x00101100\n"
-    "sw t1, 0(t0)\n"
+
+
+   "li  t1, 0x0F70447c\n"
+    "csrw 0x3A1, t1\n"
+ "li  t1, 0xfaAAAAAA\n"
+    "csrw 0x3b7, t1\n"
+
+    "li  t1, 0x8070807c\n"
+    "csrw 0x3A1, t1\n"
+    "li  t1, 0x0F825555\n"
+    "csrw 0x3A1, t1\n"
+    "li  t1, 0xAAAAAAAA\n"
+    "csrw 0x3b7, t1\n"
 
     );
 
