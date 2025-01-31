@@ -32,5 +32,6 @@ add_subdirectory(testDotMul)
 # other core features
 add_subdirectory(testCSR)
 add_subdirectory(testDebug)
+add_subdirectory(testPMP)
 #add_subdirectory(testPriv)
 
