@@ -10,20 +10,20 @@ add wave -group "Core" -radix hexadecimal sim:/tb/top_i/core_region_i/CORE/RISCV
 
 
 #add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_rvalid_o
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_err_write
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_err_read
 add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/instr_pmpvalid_o
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/pmpcfg_in
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/pmpaddr_in
+#add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/pmpcfg_in
+#add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/pmpaddr_in
 add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_addr_o
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/instr_addr_o
+add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_addr_pmp
 #add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/instr_gnt_i
 #add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_rdata_i
+add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_we_pmp
 add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_we_o
+add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_gnt_pmp
+add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/data_gnt_effettivo
 add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/addr_start_debug
 add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/addr_end_debug
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/load_op
-add wave -group PMP -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/PMP/store_op
+
 
 
 
@@ -41,7 +41,7 @@ add wave -group CSR -radix hexadecimal tb/top_i/core_region_i/CORE/RISCV_CORE/CS
 add wave -group Debug -radix hexadecimal tb/top_i/core_region_i/CORE/RISCV_CORE/CSR/pmpaddr
 add wave -group Debug -radix hexadecimal tb/top_i/core_region_i/CORE/RISCV_CORE/CSR/pmpcfg
 
-add wave -group Pipe -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/Pipe/instr_gnt_i
+add wave -group Pipe -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/Pipe/data_we_o
 add wave -group Prg_Ctr -radix hexadecimal     tb/top_i/core_region_i/CORE/RISCV_CORE/Prg_Ctr/instr_gnt_i
 
 #add wave -group Debug -radix hexadecimal tb/top_i/core_region_i/CORE/RISCV_CORE/pmpcfg

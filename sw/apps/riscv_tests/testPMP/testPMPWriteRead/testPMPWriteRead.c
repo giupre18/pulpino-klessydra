@@ -14,18 +14,31 @@
 int main() {
 
 
-    // Assembly per scrivere valori casuali nei registri CSR da 0x3B0 a 0x3EF
+
     __asm__ (
    
    
+    
+    "addi sp, sp, -12\n"
+    "sw t0, 0(sp) \n"         
+    "sw t1, 4(sp)  \n"        
+    "sw t2, 8(sp)   \n"      
+    
+    "li t1, 0x65  \n"         
+    "li t0, 0x00101100  \n"   
+    "sw t1, 0(t0)\n"         
+    "lw t2, 0(t0) \n"        
+    
 
 
-	"li t1, 0x65\n"
-	"li t0, 0x00101100\n"
-	"sw t1, 0(t0)\n"
+    "lw t2, 8(sp) \n"         
+    "lw t1, 4(sp)   \n"       
+    "lw t0, 0(sp)  \n"        
+    "addi sp, sp, 12  \n"    
 
-         "lw t2, 0(t0)\n"         
-	
+
+                 
+      
     );
 
     return 0;
