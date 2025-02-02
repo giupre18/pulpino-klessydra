@@ -18,18 +18,26 @@ int main() {
     __asm__ (
    
    
+    "addi sp, sp, -16\n"
+    "sw ra, 12(sp)\n"
+    "sw t0, 8(sp)\n"
+    "sw t1, 4(sp)\n"
+    "sw t2, 0(sp)\n"
 
+    "li t1, 0x00101100\n"
+    //"li t1, 0x00000001\n"
+    "li t2, 0x00000013\n"
+    "sw t2, 0(t1)\n"
 
-    "li  t1, 0x0F70447c\n"
-    "csrw 0x3A1, t1\n"
-    "li  t1, 0xfaAAAAAA\n"
-    "csrw 0x3b7, t1\n"
-    "li  t1, 0x8070807c\n"
-    "csrw 0x3A1, t1\n"
-    "li  t1, 0x0F825555\n"
-    "csrw 0x3A1, t1\n"
-    "li  t1, 0xAAAAAAAA\n"
-    "csrw 0x3b7, t1\n"
+    "jalr x0, t1, 0\n"
+
+    "lw t2, 0(sp)\n"
+    "lw t1, 4(sp)\n"
+    "lw t0, 8(sp)\n"
+    "lw ra, 12(sp)\n"
+
+    "addi sp, sp, 16\n"
+
 
     );
 

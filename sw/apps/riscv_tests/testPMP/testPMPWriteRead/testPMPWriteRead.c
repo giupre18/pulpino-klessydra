@@ -18,7 +18,6 @@ int main() {
     __asm__ (
    
    
-    
     "addi sp, sp, -12\n"
     "sw t0, 0(sp) \n"         
     "sw t1, 4(sp)  \n"        
