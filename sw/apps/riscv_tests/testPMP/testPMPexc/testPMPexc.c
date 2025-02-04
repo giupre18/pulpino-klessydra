@@ -23,8 +23,9 @@ int main() {
     "sw t0, 8(sp)\n"
     "sw t1, 4(sp)\n"
     "sw t2, 0(sp)\n"
-
-    "li t1, 0x00101100\n"
+     
+    "li t1, 0xDEADC\n"
+    //"li t1, 0x00101100\n"
     //"li t1, 0x00000001\n"
     "li t2, 0x00000013\n"
     "sw t2, 0(t1)\n"
