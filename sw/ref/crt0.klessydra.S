@@ -133,7 +133,9 @@ mtvec_routine:
 	beq t5, t6, invalid_addr_handler;
 	li t6,STORE_MISALIGNED_EXCEPT_CODE;		   
 	beq t5, t6, invalid_addr_handler;	
-	    	
+	li t6,INSTR_ACCESS_FAULT_CODE;      
+  beq t5, t6, instr_access_fault_handler;  
+
 	lw t4,0x00(sp);
 	lw t5, 0x04(sp);			
 	lw t6, 0x08(sp);
@@ -246,6 +248,16 @@ invalid_addr_handler:
   lw t6, 0x08(sp);
   addi	sp,sp,KLESSYDRA_EXC_STACK_SIZE;
   mret;
+
+instr_access_fault_handler:
+    lw      t4, 0x00(sp)
+    addi    sp, sp, KLESSYDRA_EXC_STACK_SIZE
+    addi    x2, x2, -EXCEPTION_STACK_SIZE
+    sw      x1, 0x5C(x2)
+    jal     x1, store_regs
+    csrr    a0, mepc         
+    la      x1, end_except
+    jal     x0, instr_access_fault_handler_c
 
 store_regs:
   sw  x3, 0x00(x2)
