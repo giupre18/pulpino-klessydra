@@ -4,4 +4,5 @@ add_subdirectory(testPMPLbit)
 add_subdirectory(testPMPWriteRead)
 add_subdirectory(testPMPexc)
 add_subdirectory(testPMPcsrr)
+add_subdirectory(testPMPaddress)
 
