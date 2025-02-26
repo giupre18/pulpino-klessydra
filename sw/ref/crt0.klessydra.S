@@ -162,7 +162,7 @@ pmpcfg:
     csrw 0x3A0, t0         
 
     # all lock-bit 1
-    li t0, 0x08080808      
+    li t0, 0x80808080      
                
 
     csrw 0x3A1, t0        
