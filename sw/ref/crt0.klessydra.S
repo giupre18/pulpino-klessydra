@@ -78,6 +78,113 @@ zero_loop_end:
 				
   call    __libc_init_array			
 
+pmpaddr:
+    # just for test
+    li t0, 0x00040000      
+    csrw 0x3B0, t0      
+
+    li t0, 0x00040800      
+    csrw 0x3B1, t0     
+
+    li t0, 0x20000000      
+    csrw 0x3B2, t0      
+
+    li t0, 0x23FFFFFF      
+    csrw 0x3B3, t0      
+
+    
+    li t0, 0x0             
+
+    csrw 0x3B4, t0
+    csrw 0x3B5, t0
+    csrw 0x3B6, t0
+    csrw 0x3B7, t0
+    csrw 0x3B8, t0
+    csrw 0x3B9, t0
+    csrw 0x3BA, t0
+    csrw 0x3BB, t0
+    csrw 0x3BC, t0
+    csrw 0x3BD, t0
+    csrw 0x3BE, t0
+    csrw 0x3BF, t0
+    csrw 0x3C0, t0
+    csrw 0x3C1, t0
+    csrw 0x3C2, t0
+    csrw 0x3C3, t0
+    csrw 0x3C4, t0
+    csrw 0x3C5, t0
+    csrw 0x3C6, t0
+    csrw 0x3C7, t0
+    csrw 0x3C8, t0
+    csrw 0x3C9, t0
+    csrw 0x3CA, t0
+    csrw 0x3CB, t0
+    csrw 0x3CC, t0
+    csrw 0x3CD, t0
+    csrw 0x3CE, t0
+    csrw 0x3CF, t0
+    csrw 0x3D0, t0
+    csrw 0x3D1, t0
+    csrw 0x3D2, t0
+    csrw 0x3D3, t0
+    csrw 0x3D4, t0
+    csrw 0x3D5, t0
+    csrw 0x3D6, t0
+    csrw 0x3D7, t0
+    csrw 0x3D8, t0
+    csrw 0x3D9, t0
+    csrw 0x3DA, t0
+    csrw 0x3DB, t0
+    csrw 0x3DC, t0
+    csrw 0x3DD, t0
+    csrw 0x3DE, t0
+    csrw 0x3DF, t0
+    csrw 0x3E0, t0
+    csrw 0x3E1, t0
+    csrw 0x3E2, t0
+    csrw 0x3E3, t0
+    csrw 0x3E4, t0
+    csrw 0x3E5, t0
+    csrw 0x3E6, t0
+    csrw 0x3E7, t0
+    csrw 0x3E8, t0
+    csrw 0x3E9, t0
+    csrw 0x3EA, t0
+    csrw 0x3EB, t0
+    csrw 0x3EC, t0
+    csrw 0x3ED, t0
+    csrw 0x3EE, t0
+    csrw 0x3EF, t0                
+
+pmpcfg:
+    # just for test
+    li t0, 0x9F9F8D8F      
+    csrw 0x3A0, t0         
+
+    # all lock-bit 1
+    li t0, 0x08080808      
+               
+
+    csrw 0x3A1, t0        
+    csrw 0x3A2, t0        
+    csrw 0x3A3, t0        
+    csrw 0x3A4, t0        
+    csrw 0x3A5, t0        
+    csrw 0x3A6, t0        
+    csrw 0x3A7, t0        
+    csrw 0x3A8, t0        
+    csrw 0x3A9, t0        
+    csrw 0x3AA, t0        
+    csrw 0x3AB, t0        
+    csrw 0x3AC, t0        
+    csrw 0x3AD, t0        
+    csrw 0x3AE, t0        
+    csrw 0x3AF, t0         
+
+end_pmp:
+fence.i
+
+
 main_entry:
   addi   x10, x0, 0
   addi   x11, x0, 0x1
@@ -126,9 +233,9 @@ mtvec_routine:
 	li t6, ILLEGAL_INSN_EXCEPT_CODE;                                  
 	beq t5, t6, illegal_insn_handler;  	                                     
 	li t6, LOAD_ERROR_EXCEPT_CODE;  		                                      
-	beq t5, t6, invalid_addr_handler; 
+	beq t5, t6, load_access_fault_handler; 
 	li t6, STORE_ERROR_EXCEPT_CODE;   		                                     
-	beq t5, t6, invalid_addr_handler;
+	beq t5, t6, store_access_fault_handler;
 	li t6,LOAD_MISALIGNED_EXCEPT_CODE;		   
 	beq t5, t6, invalid_addr_handler;
 	li t6,STORE_MISALIGNED_EXCEPT_CODE;		   
@@ -258,6 +365,26 @@ instr_access_fault_handler:
     csrr    a0, mepc         
     la      x1, end_except
     jal     x0, instr_access_fault_handler_c
+
+load_access_fault_handler:
+    lw      t4, 0x00(sp)
+    addi    sp, sp, KLESSYDRA_EXC_STACK_SIZE
+    addi    x2, x2, -EXCEPTION_STACK_SIZE
+    sw      x1, 0x5C(x2)
+    jal     x1, store_regs
+    csrr    a0, mepc         
+    la      x1, end_except
+    jal     x0, load_access_fault_handler_c
+
+store_access_fault_handler:
+    lw      t4, 0x00(sp)
+    addi    sp, sp, KLESSYDRA_EXC_STACK_SIZE
+    addi    x2, x2, -EXCEPTION_STACK_SIZE
+    sw      x1, 0x5C(x2)
+    jal     x1, store_regs
+    csrr    a0, mepc         
+    la      x1, end_except
+    jal     x0, store_access_fault_handler_c
 
 store_regs:
   sw  x3, 0x00(x2)
